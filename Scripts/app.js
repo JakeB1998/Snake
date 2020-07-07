@@ -12,11 +12,13 @@ var foodHandler = new FoodHandler(canvas, context);
 var foodRenderer = new FoodRenderer(context);
 var snakeHandler = new SnakeHandler(context,snkaePixelSize);
 var snakeHead = new Snake(250,250, false);
+var snakeTail = snakeHead;
 
-snakeHandler.addBody(260,250);
-snakeHandler.addBody(270,250);
-var snakeTail = snakeHandler.addBody(280,250);
-snakeHandler.init();
+snakeHandler.init(snakeHead.snakeSpeed);
+snakeTail = snakeHandler.addBody(250,250);
+
+//snakeHandler.addBody(snakeTail.x,snakeTail.y);
+
 
 
 
@@ -51,6 +53,7 @@ function onExit()
 }
 function update(progress) 
   {
+    var lastRecordedEaten = foodHandler.foodEaten;
     if (foodHandler.foodEaten !== score)
     {
       score = foodHandler.foodEaten;
@@ -69,6 +72,10 @@ function update(progress)
       {
         
         snakeHandler.moveSnake(snakeHead, snakeTail, cords["xDir"], cords["yDir"], foodHandler, context);
+        if (lastRecordedEaten !== foodHandler.foodEaten) // ate food in this moce
+        {
+            snakeHandler.addBody(snakeTail.x,snakeTail.y);
+        }
         //console.log(snake.x + "," + snake.y);
       
       }

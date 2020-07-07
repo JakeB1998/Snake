@@ -74,13 +74,15 @@ export class FoodRenderer
 
 export class FoodHandler
 {
-    constructor(canvas, context)
+    constructor( canvas, context)
     {
+       
         this.canvas = canvas;
         this.arraySize = 0;
         this.foods = new Array(this.arraySize);
         this.context = context;
         this.foodEaten = 0;
+        
     
 
     }
@@ -162,6 +164,7 @@ export class FoodHandler
             
             this.foodEaten+= 1;
             this.createFood(this.canvas.clientWidth, this.canvas.clientHeight);
+          
         }
         //TODO : Deleted food
 
