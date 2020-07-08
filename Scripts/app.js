@@ -2,20 +2,21 @@ import {Snake, SnakeHandler} from "./snake.js";
 import {BindingEvents} from "./keybindings.js";
 import {Food, FoodRenderer, FoodHandler} from "./food.js";
 var scoreUI = document.querySelector("p");
+var clickRequestWindow = document.querySelector("h2");
 
 var snkaePixelSize = 10;
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
 var debugText = document.querySelector("title");
 var keyBindings = new BindingEvents();
-var foodHandler = new FoodHandler(canvas, context);
-var foodRenderer = new FoodRenderer(context);
-var snakeHandler = new SnakeHandler(context,snkaePixelSize);
-var snakeHead = new Snake(250,250, false);
-var snakeTail = snakeHead;
+var foodHandler = null;
+var foodRenderer = null;
+var snakeHandler = null;
+var snakeHead = null;
+var snakeTail = null;
+initGame();
 
-snakeHandler.init(snakeHead.snakeSpeed);
-snakeTail = snakeHandler.addBody(250,250);
+
 
 //snakeHandler.addBody(snakeTail.x,snakeTail.y);
 
@@ -42,13 +43,12 @@ context.fillStyle = "#FF0000";
 var score = 0;
 var cords = null;
 
-foodHandler.createFood(canvas.clientWidth, canvas.clientHeight);
-foodHandler.renderAllFood(context);
 
 function onExit()
 {
     exit = true;
     debugText.textContent = "Game Over!";
+    initGameOver();
 
 }
 function update(progress) 
@@ -116,10 +116,34 @@ function update(progress)
       }
   }
 
-
-window.requestAnimationFrame(loop);
-
-function foodEatenCallback()
+document.body.addEventListener("click", function()
 {
-  foodHandler.createFood(canvas.clientWidth, canvas.clientHeight);
+  window.requestAnimationFrame(loop);
+  clickRequestWindow.textContent = "";
+})
+
+
+
+function initGame()
+{
+  foodHandler = new FoodHandler(canvas, context);
+foodRenderer = new FoodRenderer(context);
+ snakeHandler = new SnakeHandler(context,snkaePixelSize);
+ snakeHead = new Snake(250,250, false);
+ snakeTail = snakeHead;
+
+snakeHandler.init(snakeHead.snakeSpeed);
+snakeTail = snakeHandler.addBody(250,250);
+
+
+foodHandler.createFood(canvas.clientWidth, canvas.clientHeight);
+foodHandler.renderAllFood(context);
+
+  playBackroundMusic();
+}
+
+function initGameOver()
+{
+  stopBackroundMusic();
+  console.log("Inited death");
 }

@@ -16,15 +16,15 @@ function checkCollisionOnSelf(dirX,dirY, snake, context)
   var yHead = snake.y;
   var x = xHead + dirX;
   var y  = yHead + dirY;
-  x *= snake.snakeSpeed;
-  y *= snake.snakeSpeed;
+  //x *= snake.snakeSpeed;
+  //y *= snake.snakeSpeed;
 
   switch (dirX) // compensating for cordinate at leftmost corner of rectangle with direction
   {
-    case 1:
+    case 1 * snake.snakeSpeed:
       x += snake.xSize;
       break;
-    case -1:
+    case -1 * snake.snakeSpeed:
       break;
     default:
       break;
@@ -32,10 +32,11 @@ function checkCollisionOnSelf(dirX,dirY, snake, context)
 
   switch (dirY)  // compensating for cordinate at leftmost corner of rectangle with direction
   {
-    case 1:
+    case 1 * snake.snakeSpeed:
       y += snake.ySize;
       break;
-    case -1:
+    case -1 * snake.snakeSpeed:
+    
       break;
     default:
       break;
@@ -43,9 +44,9 @@ function checkCollisionOnSelf(dirX,dirY, snake, context)
   var dataI = context.getImageData(x,y,1,1).data;
   var headData = context.getImageData(xHead,yHead,1,1).data;
 
- 
-  //console.log(dataI[0] + "," + dataI[1] + "," + dataI[2] 
-    //            + "\n" +  headData[0]  +"," + headData[1] + "," + headData[2]);
+ //console.log(x + "," + y + "," + xHead + "," + yHead);
+ // console.log(dataI[0] + "," + dataI[1] + "," + dataI[2] 
+                + "\n" +  headData[0]  +"," + headData[1] + "," + headData[2]);
   if (dataI[0] === headData[0] && dataI[1] === headData[1] && dataI[2] === headData[2])
   {
     if (dataI[0] === 0 && dataI[1] === 0 && dataI[2] === 0)

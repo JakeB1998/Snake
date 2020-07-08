@@ -32,6 +32,10 @@ export class SnakeHandler
         
     }
 
+    /**
+     * 
+     * @param {*} snakeSpeed 
+     */
     init(snakeSpeed)
     {
         this.moveBuffer = new Array(this.snakeCordSize * this.snakeSize); // this is equal to the size of the snake so the rectangle clears corners before turning.
@@ -41,6 +45,11 @@ export class SnakeHandler
     }
 
 
+    /**
+     * 
+     * @param {*} x 
+     * @param {*} y 
+     */
     addBody(x,y)
     {
         
@@ -73,13 +82,14 @@ export class SnakeHandler
                 this.moveBuffer.unshift({dirUnitX,dirUnitY}); // add move to buffer
             // this.printBuffer();
             
-            console.log( snake.x + "," + snake.y + "\n" + snakeTail.x + "," + snakeTail.y)
+            //console.log( snake.x + "," + snake.y + "\n" + snakeTail.x + "," + snakeTail.y)
             if (checkCollisionOnSelf(dirUnitX, dirUnitY, snake, context))
             {
                 var x = snake.x + dirUnitX;
                 var y = snake.y + dirUnitY;
                 console.log("Snake hit itself at : " + x + "," + y);
                 this.snakeDead = true;
+                return;
                 
             }
                 snake.prevX = snake.x;
@@ -93,7 +103,7 @@ export class SnakeHandler
                 snakeTail.y += this.moveBuffer[this.moveBuffer.length - 1]["dirUnitY"];
 
                 this.moveBuffer.pop();
-                this.printBuffer();
+                //this.printBuffer();
                 
                 
                 
