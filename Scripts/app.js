@@ -19,18 +19,9 @@ initGame();
 
 
 //snakeHandler.addBody(snakeTail.x,snakeTail.y);
-
-
-
-
 document.getElementById("exitBtn").addEventListener("click", onExit, true);
-
-
 var lastRender = 0;
 var exit = false;
-
-
-
 var world = new Array(canvas.clientHeight);
 
 for (var i = 0 ; i < world.length; i++)
@@ -116,10 +107,15 @@ function update(progress)
       }
   }
 
+  var started = false;
 document.body.addEventListener("click", function()
 {
-  window.requestAnimationFrame(loop);
-  clickRequestWindow.textContent = "";
+  if (started === false)
+  {
+    window.requestAnimationFrame(loop);
+    clickRequestWindow.textContent = "";
+    started = true;
+  }
 })
 
 

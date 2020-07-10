@@ -46,7 +46,7 @@ function checkCollisionOnSelf(dirX,dirY, snake, context)
 
  //console.log(x + "," + y + "," + xHead + "," + yHead);
  // console.log(dataI[0] + "," + dataI[1] + "," + dataI[2] 
-                + "\n" +  headData[0]  +"," + headData[1] + "," + headData[2]);
+             //   + "\n" +  headData[0]  +"," + headData[1] + "," + headData[2]);
   if (dataI[0] === headData[0] && dataI[1] === headData[1] && dataI[2] === headData[2])
   {
     if (dataI[0] === 0 && dataI[1] === 0 && dataI[2] === 0)
