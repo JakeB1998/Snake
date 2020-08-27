@@ -1,17 +1,15 @@
-var button = document.getElementById("musicBtn");
-var toggle = true;
-button.addEventListener( "click", handleMusicButton);
+var musicButton = document.getElementById("musicBtn");
+var musicBtnToggle = true;
+musicButton.addEventListener( "click", handleMusicButton);
 
-function handleMusicButton()
-{
-    if (toggle)
-    {
+function handleMusicButton() {
+    if (musicBtnToggle) {
         //button.textContent = "Play music";
-        toggle = false;
+        musicBtnToggle = false;
     }
-    else{
-        toggle = true;
+    else {
+        musicBtnToggle = true;
     }
-    setPlayble(toggle);
-    
+    setPlayble(musicBtnToggle);
+    handleButtonActivationUI(musicButton,"red",musicBtnToggle);
 }

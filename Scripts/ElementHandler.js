@@ -2,12 +2,20 @@ var mainContainer = document.getElementById("mainContainer");
 var gameOverContainer = document.getElementById("gameOverContainer");
 removeGameOverScreen();
 addGameOverScreen();
-function addGameOverScreen()
-{
-    document.body.append(gameOverContainer);
+function addGameOverScreen(){
+    if (gameOverContainer !== null){
+        document.body.append(gameOverContainer);
+    }
+    else{
+        console.log('game over screen is null');
+    }
 }
 
-function removeGameOverScreen()
-{
-    gameOverContainer.parentElement.removeChild(gameOverContainer);
+function removeGameOverScreen(){
+    if (gameOverContainer !== null){
+        gameOverContainer.parentElement.removeChild(gameOverContainer);
+    }
+    else{
+        console.log('game over screen is null');
+    }
 }

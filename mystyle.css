@@ -1,0 +1,33 @@
+.button {
+    background-color: black; /* Green */
+    border: none;
+    color: whitesmoke;
+    padding: 7px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    position: relative;
+    left: 10px;
+    top: 10px;
+  }
+  #restartBtn
+  {
+    display:  none;
+  }
+
+  h1 {
+    font-size: 26px;
+    
+  }
+  h2
+  {
+      font-size: 26px;
+  }
+
+  p{
+      font-size: 16px;
+      text-align: left;
+      position: relative;
+      top: 10px;
+  }

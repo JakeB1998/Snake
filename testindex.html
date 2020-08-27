@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    
+    <script src = "Scripts/AudioPlayer.js"></script>
+    <script src="Scripts/button_functions.js"></script>
+    <head>
+        <title>Snake Game</title>
+        <link rel="stylesheet" type="text/css" href="mystyle.css">
+    </head>
+        <body>
+            <div id="mainContainer"> 
+                <h1>Snake Game</h1>
+                <h2>Click on screen to start</h2>
+                <P>Score: </P>
+                <canvas id="myCanvas" width="500" height="500" style="border:1px solid  #000000;" tag = "myCanvas"></canvas>
+                <div id="game-controls">
+                    <button class= "button" id="exitBtn" > End Game</button>
+                    <button class= "button" id= "musicBtn">Music</button>
+                    <button class= "button" id= "sfxBtn">SFX</button>
+                    <script src = "Scripts/MusicButton.js"></script>
+                    <script src = "Scripts/sfx_button.js"></script>
+                    <script src = "Scripts/end_game_button.js"></script>
+                 </div>
+            </div>
+            <br>
+            <div id="gameOverContainer">
+                <button class= "button" id= "restartBtn">Restart</button>
+            </div>
+        </body>
+
+</html>

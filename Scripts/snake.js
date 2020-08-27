@@ -1,90 +1,78 @@
-
-export class Snake
-{
-    
-    constructor(x,y, isTail)
-    {
-        this.x = x;
-        this.y = y;
-        this.prevX = x;
-        this.prevY = y;
-        this.row = y;
-        this.collumn = x;
-        this.xSize = 10;
-        this.ySize = 10;
-        this.snakeSpeed = 2;
-        this.tail = isTail;
-    
-    }
-
-    
+/**
+ * Constructor for Snake Object.
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} isTail 
+ */
+function Snake(x,y,isTail){
+    this.x = x;
+    this.y = y;
+    this.prevX = x;
+    this.prevY = y;
+    this.row = y;
+    this.collumn = x;
+    this.xSize = 10;
+    this.ySize = 10;
+    this.snakeSpeed = 2;
+    this.tail = isTail;
 }
 
+/**
+ * Constructor for SnakeHandler Object.
+ * @param {*} context 
+ * @param {*} snakeCordSize 
+ */
+function SnakeHandler(context,snakeCordSize){
 
-export class SnakeHandler
-{
-    constructor(context,snakeCordSize)
-    {
-        this.snakeDead = false;
-        this.context = context
-        this.snakeSize = 0;
-        this.snakeCordSize = snakeCordSize;
-        
-    }
-
+    this.snakeDead = false;
+    this.context = context
+    this.snakeSize = 0;
+    this.snakeCordSize = snakeCordSize;
     /**
      * 
      * @param {*} snakeSpeed 
      */
-    init(snakeSpeed)
-    {
+    this.init = (snakeSpeed) =>{
         this.moveBuffer = new Array(this.snakeCordSize * this.snakeSize); // this is equal to the size of the snake so the rectangle clears corners before turning.
         this.moveBuffer.fill({dirUnitX : -1, dirUnitY : 0 * snakeSpeed}); // starts to go to left
         //this.moveBuffer.unshift({dirUnitX : -1, dirUnitY : 0})
-
     }
-
-
     /**
      * 
      * @param {*} x 
      * @param {*} y 
      */
-    addBody(x,y)
-    {
-        
+    this.addBody = (x,y) =>{ 
         this.snakeSize++;
-     
-        if (this.moveBuffer !== undefined)
-        {
-            
-            for (var i = 0; i < this.snakeCordSize; i++)
-            {
+        if (this.moveBuffer !== undefined){
+            for (var i = 0; i < this.snakeCordSize; i++){
                  //this.moveBuffer.push({dirUnitX, dirUnitY});
-                this.moveBuffer.push({dirUnitX: 0, dirUnitY : 0});
-                
+                this.moveBuffer.push({dirUnitX: 0, dirUnitY : 0});     
             }
-
             this.printBuffer();
         }
-        
         return new Snake(x,y,true);
     }
 
-    moveSnake(snake, snakeTail, dirUnitX, dirUnitY, foodHandler, context) {
-        
-       if (this.snakeDead === false)
-       {
-            if (isNaN(dirUnitX) === false && isNaN(dirUnitY) === false)
-            {
+    /**
+     * 
+     * @param {*} snake 
+     * @param {*} snakeTail 
+     * @param {*} dirUnitX 
+     * @param {*} dirUnitY 
+     * @param {*} foodHandler 
+     * @param {*} context 
+     */
+    this.moveSnake = (snake, snakeTail, dirUnitX, dirUnitY, foodHandler, context) =>{
+       if (this.snakeDead === false){
+            if (isNaN(dirUnitX) === false && isNaN(dirUnitY) === false){
                 dirUnitX *= snake.snakeSpeed;
                 dirUnitY *= snake.snakeSpeed;
                 this.moveBuffer.unshift({dirUnitX,dirUnitY}); // add move to buffer
             // this.printBuffer();
             
             //console.log( snake.x + "," + snake.y + "\n" + snakeTail.x + "," + snakeTail.y)
-            if (checkCollisionOnSelf(dirUnitX, dirUnitY, snake, context))
-            {
+            if (checkCollisionOnSelf(dirUnitX, dirUnitY, snake, context)){
                 var x = snake.x + dirUnitX;
                 var y = snake.y + dirUnitY;
                 console.log("Snake hit itself at : " + x + "," + y);
@@ -104,9 +92,6 @@ export class SnakeHandler
 
                 this.moveBuffer.pop();
                 //this.printBuffer();
-                
-                
-                
                 return;
             }
             
@@ -114,8 +99,12 @@ export class SnakeHandler
         }
     }
 
-    render(snakeHead, snakeTail)
-    {
+    /**
+     * 
+     * @param {*} snakeHead 
+     * @param {*} snakeTail 
+     */
+    this.render = (snakeHead, snakeTail) =>{
         this.clearTail(snakeTail.x,snakeTail.y, snakeTail.xSize,snakeTail.ySize);
         this.context.clearRect(snakeHead.prevX, snakeHead.prevY , 10, 10);
         this.context.fillStyle = "red";
@@ -144,20 +133,16 @@ export class SnakeHandler
      * @param {*} xSize 
      * @param {*} ySize 
      */
-    clearTail(x,y,xSize,ySize)
-    {
+    this.clearTail = (x,y,xSize,ySize) => {
         this.context.clearRect(x,y,xSize,ySize);
-
     }
 
     /**
      * 
      * @param {*} sizeIncreased 
      */
-    handleMovebuffer(sizeIncreased)
-    {
-        if (sizeIncreased)
-        {
+    this.handleMovebuffer = (sizeIncreased) =>{
+        if (sizeIncreased){
 
         }
     }
@@ -165,12 +150,10 @@ export class SnakeHandler
     /**
      * Prints move buffer
      */
-    printBuffer()
-    {
+    this.printBuffer = () =>{
         var string = "";
         var x;
-        for (x = 0; x <  this.moveBuffer.length; x++)
-        {
+        for (x = 0; x <  this.moveBuffer.length; x++){
             string+= "\n" + this.moveBuffer[x]["dirUnitX"].toString() + " , " + this.moveBuffer[x]["dirUnitY"].toString();
         }
 
