@@ -14,34 +14,16 @@ function Food(x,y,xSize,ySize, staticMovement){
      * @param {*} xSize 
      * @param {*} ySize 
      */
-    this.isPointInFood = (x,y,xSize, ySize) => {
-        var xTemp = -1;;
-        var yTemp = -1;
-        console.log(this.x + ',' + this.y + ',' + x + ',' + y);
-        for ( var i = 0; i < xSize; i++ ) {
-             xTemp = x + i;
-            for (var z = 0; z < ySize; z++) {
-                yTemp = y + z;
-                if (this.RunThroughAllPoints(xTemp,yTemp)) {
-                    return true;
-                }
-            }
+    this.isPointInFood = (x,y) => {
+        let xTemp = x -this.x;
+        let yTemp = y - this.y;
+        if (xTemp <= this.xSize && xTemp >= 0 && yTemp <= this.ySize && yTemp >= 0){
+            log(xTemp + ',' + yTemp);
         }
-        return false;
+        
+        return xTemp <= this.xSize && xTemp >= 0 && yTemp <= this.ySize && yTemp >= 0;
     }
 
-    this.RunThroughAllPoints = (x,y) => { 
-        for ( var i = 0; i < this.xSize; i++ ) {
-            var xTemp = this.x + i;
-            for (var z = 0; z < this.ySize; z++) {
-                var yTemp = this.y + z;
-                if ( xTemp === x && yTemp === y)  {
-                    return true;
-                }
-            }  
-        }
-        return false;
-    }
 }
 
 /**
@@ -73,7 +55,7 @@ function FoodHandler(canvas, context) {
         this.foodEaten = 0;
 
     this.isArrayFull = (arr)  =>{
-        for (var z = 0; z < arr.length; z++)  {
+        for (let z = 0; z < arr.length; z++)  {
             if (arr[z] === null) {
                 return false;
             }
@@ -82,8 +64,8 @@ function FoodHandler(canvas, context) {
     }
 
     this.createFood = (widthMax,heightMax) => { 
-        var x = 0;
-        var y = 0;
+        let x = 0;
+        let y = 0;
         const spaceBetween = 50;
         while (true) {
             x = Math.floor((Math.random() * widthMax));
@@ -96,8 +78,9 @@ function FoodHandler(canvas, context) {
         return this.createFoodAt(x,y);
     }
     this.checkCollision = (snakeX,snakeY,snakeXSize,snakeYSize) => {
+        let cords = [[snakeX,snakeY], [snakeX + snakeXSize, snakeY], [snakeX,snakeY + snakeYSize], [snakeX + snakeXSize, snakeY + snakeYSize]];
         for (var i = 0; i < this.foods.length; i++) {
-                if (this.checkCollisionOfFood(this.foods[i],snakeX,snakeY,snakeXSize,snakeYSize)) {
+                if (this.checkCollisionOfFood(this.foods[i],cords)) {
                     this.eatFood(this.foods[i]);
                     return true;
                 }
@@ -105,13 +88,19 @@ function FoodHandler(canvas, context) {
         return false;
     }
 
-    this.checkCollisionOfFood = ( food,snakeX,snakeY, snakeXSize, snakeYSize) => { 
-        return food.isPointInFood(snakeX,snakeY,snakeXSize
-            ,snakeY); 
+    this.checkCollisionOfFood = ( food, cords) => { 
+        
+        if (cords != null){
+            for (let i = 0; i < cords.length; i++){
+                    if(result = food.isPointInFood(cords[i][0], cords[i][1])){
+                        return true;
+                    }
+            }
+        }
+        return false;
     }
-
     this.createFoodAt = (x,y) => {
-        var food = new Food(x,y,10,10,false);
+        let food = new Food(x,y,10,10,false);
         this.addFood(food);
         console.log("Food created at : " + food.x + ", " + food.y);
         return food;
@@ -132,9 +121,7 @@ function FoodHandler(canvas, context) {
     this.eatFood = (food) => {
         if (food.eaten === false) {
             food.eaten = true;
-            this.context.clearRect(food.x - (food.xSize / 2),
-                                    food.y - (food.ySize / 2) 
-                                    ,food.xSize * 4,food.ySize * 4);
+            this.context.clearRect(food.x,food.y,food.xSize, food.ySize);
             
             this.foodEaten+= 1;
             var index = this.foods.findIndex(i => i.x === food.x && i.y === food.y);
@@ -153,7 +140,11 @@ function FoodHandler(canvas, context) {
      * @param {*} context 
      */
     this.renderFood = (food,context) => {
-        console.log("Food Rendered at: " + food.x + ", " + food.y);
+     console.log("Food Rendered at: " + food.x + ", " + food.y);
+     context.fillStyle = 'blue';
+     context.fillRect(food.x, food.y, food.xSize, food.ySize);
+     context.fillStyle = 'green';
+     food.rendered = true;
         /*
         context.beginPath();
       context.arc(food.x, food.y, food.xSize, 0, 2 * Math.PI, false);
@@ -164,14 +155,10 @@ function FoodHandler(canvas, context) {
       context.stroke();
       */
 
-     context.fillStyle = 'blue';
-      context.fillRect(food.x, food.y, food.xSize, food.ySize);
-      context.fillStyle = 'green';
-      food.rendered = true;
     }
 
     this.renderAllFood = (context) => {
-        for (var i = 0; i < this.foods.length; i++) {
+        for (let i = 0; i < this.foods.length; i++) {
             if (this.foods[i] !== null) {
                 if (this.foods[i] instanceof Food) {
                     if (this.foods[i].rendered !== true)  {

@@ -16,8 +16,8 @@ var exit = false;
 var world = null;
 var score = 0;
 var cords = null;
-window.addEventListener('load', () => {
 var started = false;
+window.addEventListener('load', () => {
 document.body.addEventListener("click", function() {
   if (started === false) {
     window.requestAnimationFrame(loop);
