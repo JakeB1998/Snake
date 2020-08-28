@@ -142,7 +142,9 @@ function FoodHandler(canvas, context) {
     this.renderFood = (food,context) => {
      console.log("Food Rendered at: " + food.x + ", " + food.y);
      context.fillStyle = 'blue';
-     context.fillRect(food.x, food.y, food.xSize, food.ySize);
+     let circle = new Path2D();
+     circle.arc(food.x + food.xSize / 2, food.y + food.ySize / 2, food.xSize / 2, 0,  2 * Math.PI);
+     context.fill(circle);
      context.fillStyle = 'green';
      food.rendered = true;
         /*
