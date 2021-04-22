@@ -1,3 +1,5 @@
+
+/* Classes */
 .button {
     flex: 1;
     background-color: black; /* Green */
@@ -8,25 +10,38 @@
     text-decoration: none;
     display: inline-block;
     font-size: 12px;
-
-
-  }
-
-  
-  #game-controls {
-    display: flex;
-    width: 500px;
-    flex-direction: row;
   }
 
   .flex-child {
     flex: 1,
   }
 
+  /* IDed elements */
+  #title-heading {
+
+  }
+
+  #instructions {
+    
+  }
+
+  #score {
+
+  }
+
+  #game-controls {
+    display: flex;
+    width: 500px;
+    flex-direction: row;
+  }
+
+
+
   #restartBtn {
     display:  none;
   }
 
+  /* General elements */
   h1 {
     font-size: 26px;
     
