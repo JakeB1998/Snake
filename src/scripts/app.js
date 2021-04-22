@@ -1,6 +1,6 @@
 var scoreUI = document.querySelector("p");
 var clickRequestWindow = document.querySelector("h2");
-
+const logger = new Logger();
 var snkaePixelSize = 10;
 var canvas = null;
 var context = null;
@@ -18,28 +18,28 @@ var score = 0;
 var cords = null;
 var started = false;
 window.addEventListener('load', () => {
-document.body.addEventListener("click", function() {
-  if (started === false) {
-    window.requestAnimationFrame(loop);
-    clickRequestWindow.textContent = "";
-    started = true;
+  document.body.addEventListener("click", function() {
+    if (started === false) {
+      window.requestAnimationFrame(loop);
+      clickRequestWindow.textContent = "";
+      started = true;
+    }
+  });
+  scoreUI = document.querySelector("p");
+  clickRequestWindow = document.querySelector("h2");
+  canvas = document.getElementById("myCanvas");
+  context = canvas.getContext("2d");
+  debugText = document.querySelector("title");
+  keyBindings = new BindingEvents();
+  initGame();
+  //snakeHandler.addBody(snakeTail.x,snakeTail.y);
+  document.getElementById("exitBtn").addEventListener("click", onExit, true);
+  world = new Array(canvas.clientHeight);
+  for (var i = 0 ; i < world.length; i++){
+      world[i] = new Array(canvas.clientWidth); // create 2d array
+      world[i].fill(0);
   }
-});
-scoreUI = document.querySelector("p");
-clickRequestWindow = document.querySelector("h2");
-canvas = document.getElementById("myCanvas");
-context = canvas.getContext("2d");
-debugText = document.querySelector("title");
-keyBindings = new BindingEvents();
-initGame();
-//snakeHandler.addBody(snakeTail.x,snakeTail.y);
-document.getElementById("exitBtn").addEventListener("click", onExit, true);
-world = new Array(canvas.clientHeight);
-for (var i = 0 ; i < world.length; i++){
-    world[i] = new Array(canvas.clientWidth); // create 2d array
-    world[i].fill(0);
-}
-context.fillStyle = "#FF0000";
+  context.fillStyle = "#FF0000";
 });
 
 /**
@@ -80,7 +80,8 @@ function update(progress) {
   }
   
   /**
-   * Render draw function
+   * Renders all the data to the screen. 
+   * Called every framed timestamp.
    */
   function draw()  {
     if (scoreUI.textContent !== "Score: " + score) {
@@ -92,7 +93,7 @@ function update(progress) {
   }
 
   /**
-   * 
+   * The main loop that runs every framed timestamp.
    * @param {*} timestamp 
    */
   function loop(timestamp) {
@@ -107,11 +108,8 @@ function update(progress) {
       }
   }
 
-
-
-
 /**
- * 
+ * Initializes game.
  */
 function initGame() {
   foodHandler = new FoodHandler(canvas, context);
@@ -126,6 +124,9 @@ function initGame() {
   playBackroundMusic();
 }
 
+/**
+ * Initalizes protocol to handle a game over state.
+ */
 function initGameOver() {
   stopBackroundMusic();
   console.log("Inited death");
