@@ -4,7 +4,7 @@
  * @param {*} y 
  * @param {*} isTail 
  */
-function Snake(x,y,isTail){
+function Snake(x,y,isTail) {
     this.x = x;
     this.y = y;
     this.prevX = x;
@@ -22,7 +22,7 @@ function Snake(x,y,isTail){
  * @param {*} context 
  * @param {*} snakeCordSize 
  */
-function SnakeHandler(context,snakeCordSize){
+function SnakeHandler(context,snakeCordSize) {
 
     this.snakeDead = false;
     this.context = context
@@ -63,7 +63,7 @@ function SnakeHandler(context,snakeCordSize){
      * @param {*} foodHandler 
      * @param {*} context 
      */
-    this.moveSnake = (snake, snakeTail, dirUnitX, dirUnitY, foodHandler, context) =>{
+    this.moveSnake = (snake, snakeTail, dirUnitX, dirUnitY, foodHandler, context) => {
        if (this.snakeDead === false){
             if (isNaN(dirUnitX) === false && isNaN(dirUnitY) === false){
                 dirUnitX *= snake.snakeSpeed;
@@ -113,14 +113,11 @@ function SnakeHandler(context,snakeCordSize){
         this.context.fillRect(snakeHead.prevX, snakeHead.prevY, 10,10);
 
 
-        if (snakeTail.tail === true)
-        {
+        if (snakeTail.tail === true) {
             this.clearTail(snakeTail.prevX,snakeTail.prevY,snakeTail.xSize,snakeTail.ySize);
-            this.context.fillRect(snakeTail.x,snakeTail.y, snakeTail.xSize,snakeTail.ySize);
-            
-            
+            this.context.fillRect(snakeTail.x,snakeTail.y, snakeTail.xSize,snakeTail.ySize); 
         }
-        else{
+        else {
             console.log("Snake tail is not tail");
         }
 
@@ -141,8 +138,8 @@ function SnakeHandler(context,snakeCordSize){
      * 
      * @param {*} sizeIncreased 
      */
-    this.handleMovebuffer = (sizeIncreased) =>{
-        if (sizeIncreased){
+    this.handleMovebuffer = (sizeIncreased) => {
+        if (sizeIncreased) {
 
         }
     }
@@ -150,7 +147,7 @@ function SnakeHandler(context,snakeCordSize){
     /**
      * Prints move buffer
      */
-    this.printBuffer = () =>{
+    this.printBuffer = () => {
         var string = "";
         var x;
         for (x = 0; x <  this.moveBuffer.length; x++){

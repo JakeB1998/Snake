@@ -3,19 +3,19 @@ var gameOverContainer = document.getElementById("gameOverContainer");
 removeGameOverScreen();
 addGameOverScreen();
 function addGameOverScreen(){
-    if (gameOverContainer !== null){
+    if (gameOverContainer !== null) {
         document.body.append(gameOverContainer);
     }
-    else{
+    else {
         console.log('game over screen is null');
     }
 }
 
-function removeGameOverScreen(){
-    if (gameOverContainer !== null){
+function removeGameOverScreen() {
+    if (gameOverContainer !== null) {
         gameOverContainer.parentElement.removeChild(gameOverContainer);
     }
-    else{
+    else {
         console.log('game over screen is null');
     }
 }

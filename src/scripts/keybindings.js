@@ -1,7 +1,7 @@
 /**
  * Constructor Object
  */
-function BindingEvents(){
+function BindingEvents() {
         this.up = false;
         this.down = false;
         this.left = false;

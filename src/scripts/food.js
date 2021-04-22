@@ -1,4 +1,4 @@
-function Food(x,y,xSize,ySize, staticMovement){
+function Food(x,y,xSize,ySize, staticMovement) {
     this.x = x;
     this.y = y;
     this.xSize = xSize;
@@ -38,8 +38,8 @@ function FoodRenderer(context) {
          * @param {*} food 
          */
         this.draw = (food) => {
-        this.context.fillC
-    }
+            this.context.fillC
+        }
 }
 
 /**

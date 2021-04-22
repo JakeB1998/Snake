@@ -1,15 +1,18 @@
-const audioPlayer = new Audio("Src/backroundMusic.mp3");
-const gameOverAudio = new Audio("Src/game-over.wav");
-const uiAudio = new Audio("Src/ui-sfx.wav");
+const audioPlayer = new Audio("src/assets/sound/backroundMusic.mp3");
+const gameOverAudio = new Audio("src/assets/sound/game-over.wav");
+const uiAudio = new Audio("src/assets/sound/ui-sfx.wav");
 var snakeGrowAudio = null;
 var promise = false; //play permission implicity, done by interacting with html
 var queToPlay = false; //que to play backround music once either the neccassary permisssions are granted
 var playable  = true; //play permission explicit
 var sfxPlayable = true;
 
-document.body.addEventListener("click", function() {
-    promiseGrant();
-});
+window.addEventListener('load', () => {
+    document.body.addEventListener("click", function() {
+        promiseGrant();
+    });
+})
+
 
 /**
  * Grants the user promise to play audio. 

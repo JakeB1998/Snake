@@ -1,4 +1,5 @@
 .button {
+    flex: 1;
     background-color: black; /* Green */
     border: none;
     color: whitesmoke;
@@ -7,20 +8,21 @@
     text-decoration: none;
     display: inline-block;
     font-size: 12px;
-    position: relative;
-    left: 10px;
-    top: 10px;
+
+
   }
 
   
   #game-controls {
     display: flex;
+    width: 50%;
     flex-direction: row;
   }
 
   .flex-child {
-    
+    flex: 1,
   }
+
   #restartBtn {
     display:  none;
   }
@@ -29,6 +31,7 @@
     font-size: 26px;
     
   }
+
   h2 {
        font-size: 26px;
   }
