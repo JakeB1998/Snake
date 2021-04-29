@@ -24,6 +24,8 @@ window.addEventListener('load', () => {
   scoreUI = document.querySelector("p");
   clickRequestWindow = document.querySelector("#instructions");0
   gameData = gameDataHandler.loadGameData();
+  console.log(gameData)
+  gameDataHandler.gameData = gameData;
   settings = gameDataHandler.loadSettings();
   handleSettingsChange(null,settings);
   showClickInstruct();

@@ -20,9 +20,9 @@
    
     GameDataHandler.prototype.loadSettings = function() {
         let item = this.gameData;
-        console.log(item)
-        if (item && item.data && item.settings) {
-            let settingsObj = JSON.parse(item.data.settings);
+       
+        if (item && item.data && item.data.settings) {
+            let settingsObj = item.data.settings
             return settingsObj;
         }
         this.saveSettings(defaultSettingsJsonObject);
@@ -31,6 +31,8 @@
 
     GameDataHandler.prototype.saveSettings = function(settings) {
         if (settings) {
+            console.trace()
+            console.log(settings);
             this.gameData.data.settings = settings;
             this.saveGameData(this.gameData);
         }
