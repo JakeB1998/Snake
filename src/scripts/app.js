@@ -1,7 +1,10 @@
-var scoreUI = document.querySelector("p");
-var clickRequestWindow = document.querySelector("h2");
+var scoreUI = null;
+var clickRequestWindow = null;
+const clickInstructionsText = "Click on screen to start";
 const logger = new Logger();
-var snkaePixelSize = 10;
+var gameData = null;
+var settings = null;
+var snakePixelSize = 10;
 var canvas = null;
 var context = null;
 var debugText = null;
@@ -18,13 +21,12 @@ var score = 0;
 var cords = null;
 var started = false;
 window.addEventListener('load', () => {
-  document.body.addEventListener("click", function() {
-    if (started === false) {
-      window.requestAnimationFrame(loop);
-      clickRequestWindow.textContent = "";
-      started = true;
-    }
-  });
+  scoreUI = document.querySelector("p");
+  clickRequestWindow = document.querySelector("#instructions");0
+  gameData = gameDataHandler.loadGameData();
+  settings = settingsHandler.loadSettings();
+  handleSettingsChange(settings);
+  showClickInstruct();
   scoreUI = document.querySelector("p");
   clickRequestWindow = document.querySelector("h2");
   canvas = document.getElementById("myCanvas");
@@ -34,12 +36,7 @@ window.addEventListener('load', () => {
   initGame();
   //snakeHandler.addBody(snakeTail.x,snakeTail.y);
   document.getElementById("exitBtn").addEventListener("click", onExit, true);
-  world = new Array(canvas.clientHeight);
-  for (var i = 0 ; i < world.length; i++){
-      world[i] = new Array(canvas.clientWidth); // create 2d array
-      world[i].fill(0);
-  }
-  context.fillStyle = "#FF0000";
+  
 });
 
 /**
@@ -112,15 +109,25 @@ function update(progress) {
  * Initializes game.
  */
 function initGame() {
+  exit = false;
+  world = new Array(canvas.clientHeight);
+  for (var i = 0 ; i < world.length; i++){
+      world[i] = new Array(canvas.clientWidth); // create 2d array
+      world[i].fill(0);
+  }
+  context.fillStyle = "#FF0000";
+  context.fillStyle = 'white';
+  context.fillRect(0,0,canvas.width, canvas.height);
   foodHandler = new FoodHandler(canvas, context);
   foodRenderer = new FoodRenderer(context);
-  snakeHandler = new SnakeHandler(context,snkaePixelSize);
+  snakeHandler = new SnakeHandler(context,snakePixelSize);
   snakeHead = new Snake(250,250, false);
   snakeTail = snakeHead;
   snakeHandler.init(snakeHead.snakeSpeed);
   snakeTail = snakeHandler.addBody(250,250);
   foodHandler.createFood(canvas.clientWidth, canvas.clientHeight);
   foodHandler.renderAllFood(context);
+  console.log(snakeHead);
   playBackroundMusic();
 }
 
@@ -130,4 +137,30 @@ function initGame() {
 function initGameOver() {
   stopBackroundMusic();
   console.log("Inited death");
+  showClickInstruct();
+}
+
+
+
+function handleGameDataChange(gameDataJson) {
+
+}
+
+function handleSettingsChange(settingsJson) {
+  if (typeof settingsJson !== 'undefined' && settingsJson != null) {
+    toggleMusicButton.setToggle(settingsJson.music);
+  }
+}
+function showClickInstruct() {
+  clickRequestWindow.textContent = clickInstructionsText;
+  document.body.addEventListener("click", hideClickInstruct);
+}
+
+function hideClickInstruct() {
+    clickRequestWindow.textContent = "";
+    started = true;
+    initGame();
+    window.requestAnimationFrame(loop);
+    document.body.removeEventListener('click', showClickInstruct)
+  
 }

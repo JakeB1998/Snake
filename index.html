@@ -1,18 +1,19 @@
 
 <!DOCTYPE html>
 <html>
-    <script src="src/scripts/toggleable-button.js"></script>
-    <script src="src/scripts/element-handler.js"></script>
-    <script src="src/scripts/audio-player.js" ></script>
-    <script src="src/scripts/snake.js"></script>
-    <script src="src/scripts/collision-checker.js" ></script>
-    <script src="src/scripts/keybindings.js"></script>
-    <script src="src/scripts/food.js"></script>
-    <script src="src/scripts/logger.js"></script>
-    <script src="src/scripts/button-functions.js"></script>
-    <script src="src/scripts/music-button.js"></script>
-    <script src="src/scripts/sfx-button.js"></script>
-    <script src="src/scripts/end-game-button.js"></script>
+    <script src="src/scripts/ui/toggleable-button.js"></script>
+    <script src="src/scripts/ui/element-handler.js"></script>
+    <script src="src/scripts/ui/button-functions.js"></script>
+    <script src="src/scripts/ui/music-button.js"></script>
+    <script src="src/scripts/ui/sfx-button.js"></script>
+    <script src="src/scripts/ui/end-game-button.js"></script>
+    <script src="src/scripts/models/snake.js"></script>
+    <script src="src/scripts/models/keybindings.js"></script>
+    <script src="src/scripts/models/food.js"></script>
+    <script src="src/scripts/models/logger.js"></script>
+    <script src="src/scripts/logic/collision-checker.js" ></script>
+    <script src="src/scripts/logic/audio-player.js" ></script>
+    <script src="src/scripts/logic/data-handler.js"></script>
     <script src="src/scripts/app.js"></script>
 
     <head>
@@ -22,7 +23,7 @@
     <body>
         <div id="mainContainer"> 
             <h1 id="title-heading">Snake Game</h1>
-            <h2 id="instructions">Click on screen to start</h2>
+            <h2 id="instructions"></h2>
             <P id='score'>Score: </P>
             <canvas id="myCanvas" width="500" height="500" style="border:1px solid  #000000;" tag = "myCanvas"></canvas>
             <div id="game-controls">

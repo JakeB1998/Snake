@@ -8,9 +8,7 @@ var playable  = true; //play permission explicit
 var sfxPlayable = true;
 
 window.addEventListener('load', () => {
-    document.body.addEventListener("click", function() {
-        promiseGrant();
-    });
+    document.body.addEventListener("click", promiseGrant);
 })
 
 
@@ -21,11 +19,12 @@ window.addEventListener('load', () => {
  */
 function promiseGrant() {
     promise = true;
-    console.log(queToPlay);
+    console.log('asda')
     if (queToPlay) {
         queToPlay = false;
         playBackroundMusic();
     }
+    document.body.removeEventListener("click", promiseGrant);
 }
 
 /**

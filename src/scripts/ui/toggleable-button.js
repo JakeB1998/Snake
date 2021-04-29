@@ -24,6 +24,11 @@ function ToggleButton(button, toggle = true, callback) {
         this.sendEvent();
     }
 
+    this.setToggle = (toggle) => {
+        this.toggle = toggle;
+        this.sendEvent();
+    }
+
     privateCallback = () => {
         this.handleToggle();
     }
@@ -32,8 +37,5 @@ function ToggleButton(button, toggle = true, callback) {
     if (button) {
         button.addEventListener('click', privateCallback);
     }
-
-
-    
 
 }
