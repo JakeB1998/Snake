@@ -24,8 +24,8 @@ window.addEventListener('load', () => {
   scoreUI = document.querySelector("p");
   clickRequestWindow = document.querySelector("#instructions");0
   gameData = gameDataHandler.loadGameData();
-  settings = settingsHandler.loadSettings();
-  handleSettingsChange(settings);
+  settings = gameDataHandler.loadSettings();
+  handleSettingsChange(null,settings);
   showClickInstruct();
   scoreUI = document.querySelector("p");
   clickRequestWindow = document.querySelector("h2");
@@ -33,10 +33,7 @@ window.addEventListener('load', () => {
   context = canvas.getContext("2d");
   debugText = document.querySelector("title");
   keyBindings = new BindingEvents();
-  initGame();
-  //snakeHandler.addBody(snakeTail.x,snakeTail.y);
-  document.getElementById("exitBtn").addEventListener("click", onExit, true);
-  
+  initGame(); 
 });
 
 /**
@@ -44,7 +41,6 @@ window.addEventListener('load', () => {
  */
 function onExit() {
     exit = true;
-    debugText.textContent = "Game Over!";
     initGameOver();
 }
 
@@ -57,23 +53,20 @@ function update(progress) {
     if (foodHandler.foodEaten !== score) {
       score = foodHandler.foodEaten;
     }
-
-    if (checkCollisionWall(snakeHead.x,snakeHead.y, canvas.clientWidth, canvas.clientHeight) === false) {
+    if (!checkCollisionWall(snakeHead.x,snakeHead.y, canvas.clientWidth, canvas.clientHeight)) {
       if (foodHandler.checkCollision(snakeHead.x,snakeHead.y,snakeHead.xSize,snakeHead.ySize)) {
           console.log("Ate food");
       }
       var cords = keyBindings.findVector();
       if (cords !== null) {
-        
         snakeHandler.moveSnake(snakeHead, snakeTail, cords["xDir"], cords["yDir"], foodHandler, context);
         if (lastRecordedEaten !== foodHandler.foodEaten)  {  // ate food in this moce 
             snakeHandler.addBody(snakeTail.x,snakeTail.y);
         }
-        //console.log(snake.x + "," + snake.y);
       }
     }
     else
-      onExit();
+      initGameOver();
   }
   
   /**
@@ -94,9 +87,9 @@ function update(progress) {
    * @param {*} timestamp 
    */
   function loop(timestamp) {
-      if (exit === false) {
+      if (!exit) {
         var progress = timestamp - lastRender;
-        if (snakeHandler.snakeDead !== true) {
+        if (!snakeHandler.snakeDead) {
           update(progress);
           draw();
         }
@@ -109,15 +102,13 @@ function update(progress) {
  * Initializes game.
  */
 function initGame() {
-  exit = false;
+  console.trace()
   world = new Array(canvas.clientHeight);
   for (var i = 0 ; i < world.length; i++){
       world[i] = new Array(canvas.clientWidth); // create 2d array
       world[i].fill(0);
   }
-  context.fillStyle = "#FF0000";
-  context.fillStyle = 'white';
-  context.fillRect(0,0,canvas.width, canvas.height);
+  clearScreen()
   foodHandler = new FoodHandler(canvas, context);
   foodRenderer = new FoodRenderer(context);
   snakeHandler = new SnakeHandler(context,snakePixelSize);
@@ -135,32 +126,52 @@ function initGame() {
  * Initalizes protocol to handle a game over state.
  */
 function initGameOver() {
-  stopBackroundMusic();
-  console.log("Inited death");
-  showClickInstruct();
+  requestAnimationFrame(() => {
+    exit = true;
+    console.log('game over')
+    debugText.textContent = "Game Over!";
+    window.requestAnimationFrame(clearScreen); 
+    stopBackroundMusic();
+    showClickInstruct();
+  });
+ 
 }
 
-
-
-function handleGameDataChange(gameDataJson) {
-
+function clearScreen() {
+  let prevFill = context.fillStyle;
+  context.fillStyle = 'white';
+  context.fillRect(0,0,canvas.width, canvas.height);
+  context.fillStyle = prevFill;
 }
 
-function handleSettingsChange(settingsJson) {
+function handleGameDataChange(prevGameDataJson, gameDataJson) {
+    if (gameDataJson) {
+      var prevSetting = prevGameDataJson && prevGameDataJson.data ? prevGameDataJson.data.settings : null;
+      if (gameDataJson.data) {
+        //handle data and pass down
+        handleSettingsChange(prevSetting, gameDataJson.data.settings);
+      }
+    }
+}
+
+function handleSettingsChange(prevSettingsJson,settingsJson) {
   if (typeof settingsJson !== 'undefined' && settingsJson != null) {
     toggleMusicButton.setToggle(settingsJson.music);
+    toggleSfxButton.setToggle(settingsJson.sfx);
   }
 }
 function showClickInstruct() {
-  clickRequestWindow.textContent = clickInstructionsText;
-  document.body.addEventListener("click", hideClickInstruct);
+    clickRequestWindow.textContent = clickInstructionsText;
+    document.body.addEventListener("click", hideClickInstruct);
 }
 
 function hideClickInstruct() {
     clickRequestWindow.textContent = "";
+    debugText.textContent = "Snake Game"
     started = true;
+    exit = false;
     initGame();
     window.requestAnimationFrame(loop);
-    document.body.removeEventListener('click', showClickInstruct)
+    document.body.removeEventListener('click', hideClickInstruct)
   
 }

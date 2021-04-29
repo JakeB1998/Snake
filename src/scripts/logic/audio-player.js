@@ -19,7 +19,6 @@ window.addEventListener('load', () => {
  */
 function promiseGrant() {
     promise = true;
-    console.log('asda')
     if (queToPlay) {
         queToPlay = false;
         playBackroundMusic();
@@ -31,7 +30,8 @@ function promiseGrant() {
  * Plays backround music
  */
   function playBackroundMusic() {
-    if (promise === true && playable === true) {
+   
+    if (promise && playable) {
       audioPlayer.play();
     }
     else {
@@ -62,15 +62,11 @@ function promiseGrant() {
    * @param {*} audio 
    */
   function playAudio(audio) {
-        if (audio !== undefined)
-        {
-            if (audio !== null && playable === true && promise === true)
-            {
+        if (typeof audio !== 'undefined' && audio != null) {
+            if (playable && promise) {
                 audio.play();
             }
-            else{
-                console.log("Playable: " + playable + "\nPromise: " + promise);
-            }
+            else console.log("Playable: " + playable + "\nPromise: " + promise);
         }
   }
 
@@ -85,56 +81,39 @@ function promiseGrant() {
    * 
    */
   function playGrowSound() {
-    if (sfxPlayable)
-    {
-        playAudio(snakeGrowAudio);
-    }
+    if (sfxPlayable) playAudio(snakeGrowAudio);
   }
 
   /**
    * Sets wether or not the audio player has permission to output audio
    * @param {*} playableValue 
    */
-  function setPlayble(playableValue)
-  {
+  function setPlayble(playableValue) {
     playable = playableValue
-    if (playable === false)
-    {
+    if (!playable) {
         stopBackroundMusic();
     }
-    else
-    {
-        playBackroundMusic();
-    }
-
+    else playBackroundMusic();
   }
 
   /**
    * 
    * @param {*} playableValue 
    */
-  function setSFXPlayable(playableValue)
-  {
+  function setSFXPlayable(playableValue) {
       sfxPlayable = playableValue;
   }
 
-  function X()
-  {
-      
-  }
+ 
   /**
    * 
    * @param {*} audio 
    */
-  function playSFX(audio)
-  {
-      if (sfxPlayable)
-    {
+  function playSFX(audio) {
+    if (sfxPlayable) {
         playAudio(audio);
     }
-    else
-    {
-        console.log("SFX playabale: " + sfxPlayable);
-    }
+    else console.log("SFX playabale: " + sfxPlayable);
+    
   }
 

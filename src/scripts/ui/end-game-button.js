@@ -1,16 +1,14 @@
 var buttonEndGame = null;
 var toggleButtonEndGame = null;
 
-window.addEventListener('click', () => {
+window.addEventListener('load', () => {
     buttonEndGame = document.getElementById("exitBtn");
-    toggleButton = new ToggleButton(buttonEndGame, true, (toggle) => {
-        handleExitButton(toggle);
-    })
+    buttonEndGame.addEventListener('click', handleExitButton);
 });
 
 
 
 
 function handleExitButton(toggle) {
-    handleButtonActivationUI(buttonEndGame,undefined, toggle);
+    initGameOver()
 }

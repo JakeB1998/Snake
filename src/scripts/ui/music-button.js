@@ -13,5 +13,8 @@ window.addEventListener('load', () => {
 
 function handleMusicButton(active) {
     setPlayble(active);
+    let temp = gameDataHandler.loadSettings();
+    temp.music = active
+    gameDataHandler.saveSettings(temp);
     handleButtonActivationUI(musicButton,"red",active);
 }
