@@ -12,8 +12,8 @@ var keyBindings = null;
 var foodHandler = null;
 var foodRenderer = null;
 var snakeHandler = null;
-var snakeHead = null;
-var snakeTail = null;
+var snakeHead = null; //remove
+var snakeTail = null; //remove
 var lastRender = 0;
 var exit = false;
 var world = null;
@@ -51,19 +51,22 @@ function onExit() {
  * @param {*} progress 
  */
 function update(progress) {
+  var snakeHead = snakeHandler.getSnakeHead();
+  var snakeTail = snakeHandler.getSnakeTail();
     var lastRecordedEaten = foodHandler.foodEaten;
     if (foodHandler.foodEaten !== score) {
       score = foodHandler.foodEaten;
     }
-    if (!checkCollisionWall(snakeHead.x,snakeHead.y, canvas.clientWidth, canvas.clientHeight)) {
+    if (!checkCollisionWall(snakeHead.x, snakeHead.y, canvas.clientWidth, canvas.clientHeight)) {
       if (foodHandler.checkCollision(snakeHead.x,snakeHead.y,snakeHead.xSize,snakeHead.ySize)) {
           console.log("Ate food");
       }
       var cords = keyBindings.findVector();
-      if (cords !== null) {
+      if (cords != null) {
         snakeHandler.moveSnake(snakeHead, snakeTail, cords["xDir"], cords["yDir"], foodHandler, context);
         if (lastRecordedEaten !== foodHandler.foodEaten)  {  // ate food in this moce 
-            snakeHandler.addBody(snakeTail.x,snakeTail.y);
+          snakeHandler.growBody(snakeTail.x,snakeTail.y);
+            //snakeHandler.addBody(snakeTail.prevX,snakeTail.prevY);
         }
       }
     }
@@ -114,13 +117,11 @@ function initGame() {
   foodHandler = new FoodHandler(canvas, context);
   foodRenderer = new FoodRenderer(context);
   snakeHandler = new SnakeHandler(context,snakePixelSize);
-  snakeHead = new Snake(250,250, false);
+  snakeHandler.init(2);
+  snakeHead = snakeHandler.addBody(250,250);
   snakeTail = snakeHead;
-  snakeHandler.init(snakeHead.snakeSpeed);
-  snakeTail = snakeHandler.addBody(250,250);
   foodHandler.createFood(canvas.clientWidth, canvas.clientHeight);
   foodHandler.renderAllFood(context);
-  console.log(snakeHead);
   playBackroundMusic();
 }
 
