@@ -31,8 +31,6 @@
 
     GameDataHandler.prototype.saveSettings = function(settings) {
         if (settings) {
-            console.trace()
-            console.log(settings);
             this.gameData.data.settings = settings;
             this.saveGameData(this.gameData);
         }

@@ -140,23 +140,12 @@ function FoodHandler(canvas, context) {
      * @param {*} context 
      */
     this.renderFood = (food,context) => {
-     console.log("Food Rendered at: " + food.x + ", " + food.y);
      context.fillStyle = 'blue';
      let circle = new Path2D();
      circle.arc(food.x + food.xSize / 2, food.y + food.ySize / 2, food.xSize / 2, 0,  2 * Math.PI);
      context.fill(circle);
      context.fillStyle = 'green';
      food.rendered = true;
-        /*
-        context.beginPath();
-      context.arc(food.x, food.y, food.xSize, 0, 2 * Math.PI, false);
-      context.fillStyle = 'green';
-      context.fill();
-      context.lineWidth = 5;
-      context.strokeStyle = '#003300';
-      context.stroke();
-      */
-
     }
 
     this.renderAllFood = (context) => {

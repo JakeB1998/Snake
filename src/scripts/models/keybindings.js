@@ -10,7 +10,6 @@ function BindingEvents() {
         this.yDir = 0;
 
         document.onkeydown = function(e){
-            console.log(e.code); 
             switch(e.code){
                
                 case 'KeyA':

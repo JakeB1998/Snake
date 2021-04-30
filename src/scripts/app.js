@@ -107,7 +107,6 @@ function update(progress) {
  * Initializes game.
  */
 function initGame() {
-  console.trace()
   world = new Array(canvas.clientHeight);
   for (var i = 0 ; i < world.length; i++){
       world[i] = new Array(canvas.clientWidth); // create 2d array
@@ -117,9 +116,9 @@ function initGame() {
   foodHandler = new FoodHandler(canvas, context);
   foodRenderer = new FoodRenderer(context);
   snakeHandler = new SnakeHandler(context,snakePixelSize);
-  snakeHandler.init(2);
-  snakeHead = snakeHandler.addBody(250,250);
-  snakeTail = snakeHead;
+  snakeHandler.init(2,Math.floor(canvas.width / 2), Math.floor(canvas.height / 2));
+  snakeHead = snakeHandler.getSnakeHead();
+  snakeTail = snakeHandler.getSnakeTail();
   foodHandler.createFood(canvas.clientWidth, canvas.clientHeight);
   foodHandler.renderAllFood(context);
   playBackroundMusic();

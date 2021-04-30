@@ -112,8 +112,6 @@ function promiseGrant() {
   function playSFX(audio) {
     if (sfxPlayable) {
         playAudio(audio);
-    }
-    else console.log("SFX playabale: " + sfxPlayable);
-    
+    } 
   }
 
