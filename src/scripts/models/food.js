@@ -18,7 +18,7 @@ function Food(x,y,xSize,ySize, staticMovement) {
         let xTemp = x -this.x;
         let yTemp = y - this.y;
         if (xTemp <= this.xSize && xTemp >= 0 && yTemp <= this.ySize && yTemp >= 0){
-            log(xTemp + ',' + yTemp);
+            logger.logInfo(xTemp + ',' + yTemp);
         }
         
         return xTemp <= this.xSize && xTemp >= 0 && yTemp <= this.ySize && yTemp >= 0;
