@@ -1,7 +1,6 @@
 var scoreUI = null;
 var clickRequestWindow = null;
 const clickInstructionsText = "Click on screen to start";
-const logger = new Logger();
 var gameData = null;
 var settings = null;
 var snakePixelSize = 10;
@@ -63,7 +62,7 @@ function update(progress) {
     }
     if (!checkCollisionWall(snakeHead.x, snakeHead.y, canvas.clientWidth, canvas.clientHeight)) {
       if (foodHandler.checkCollision(snakeHead.x,snakeHead.y,snakeHead.xSize,snakeHead.ySize)) {
-          console.log("Ate food");
+          logger.logGeneric("Ate food");
       }
       var cords = keyBindings.findVector();
       if (cords != null) {
