@@ -44,6 +44,7 @@ function promiseGrant() {
    */
   function stopBackroundMusic() {
       if (promise) {
+          logger.logInfo("Backround stopped")
          audioPlayer.pause();
       }
   }

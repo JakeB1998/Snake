@@ -54,6 +54,8 @@ function onExit() {
  * @param {*} progress 
  */
 function update(progress) {
+  
+  
   var snakeHead = snakeHandler.getSnakeHead();
   var snakeTail = snakeHandler.getSnakeTail();
     var lastRecordedEaten = foodHandler.foodEaten;
@@ -100,7 +102,7 @@ function update(progress) {
         if (!snakeHandler.snakeDead) {
           update(progress);
           draw();
-        }
+        } else initGameOver()
         lastRender = timestamp;
         window.requestAnimationFrame(loop);
       }
@@ -115,7 +117,7 @@ function initGame() {
       world[i] = new Array(canvas.clientWidth); // create 2d array
       world[i].fill(0);
   }
-  clearScreen()
+  clearScreen();
   foodHandler = new FoodHandler(canvas, context);
   foodRenderer = new FoodRenderer(context);
   snakeHandler = new SnakeHandler(context,snakePixelSize);
@@ -133,7 +135,7 @@ function initGame() {
 function initGameOver() {
   requestAnimationFrame(() => {
     exit = true;
-    console.log('game over')
+    logger.logInfo('game over')
     debugText.textContent = "Game Over!";
     window.requestAnimationFrame(clearScreen); 
     stopBackroundMusic();

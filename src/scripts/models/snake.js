@@ -151,7 +151,7 @@ function SnakeHandler(context,snakeCordSize,) {
      * @param {*} context 
      */
     this.moveSnake = (snake, snakeTail, dirUnitX, dirUnitY, foodHandler, context) => {
-       if (this.snakeDead === false) {
+       if (!this.snakeDead) {
             if (isNaN(dirUnitX) || isNaN(dirUnitY)) return;
             dirUnitX *= snake.snakeSpeed;
             dirUnitY *= snake.snakeSpeed;
@@ -159,7 +159,7 @@ function SnakeHandler(context,snakeCordSize,) {
             if (checkCollisionOnSelf(dirUnitX, dirUnitY, snake, this.snakeParts,context)) {
                 var x = snake.x + dirUnitX;
                 var y = snake.y + dirUnitY;
-                console.log("Snake hit itself at : " + x + "," + y);
+                logger.logInfo(`Snake hit itself at: ${x}, ${y}`);
                 this.snakeDead = true;
                 return;   
             }
