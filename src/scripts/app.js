@@ -20,6 +20,10 @@ var world = null;
 var score = 0;
 var cords = null;
 var started = false;
+
+const debugLog = true;
+const logger = new Logger(debugLog)
+
 window.addEventListener('load', () => {
   scoreUI = document.querySelector("p");
   clickRequestWindow = document.querySelector("#instructions");0

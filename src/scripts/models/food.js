@@ -125,7 +125,6 @@ function FoodHandler(canvas, context) {
             
             this.foodEaten+= 1;
             var index = this.foods.findIndex(i => i.x === food.x && i.y === food.y);
-            console.log('index in food: ' + index);
             this.foods.splice(index,1);
             this.createFood(this.canvas.clientWidth, this.canvas.clientHeight);
         }
